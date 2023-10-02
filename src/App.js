@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import "./App.sass";
+import "./fonts.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CategoryPage from "./pages/CategoryPage";
