@@ -4,7 +4,8 @@ import "./App.sass";
 import "./fonts.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import CategoryPage from "./pages/CategoryPage";
+// import CategoryPage from "./pages/CategoryPage";
+import ArticleList from "./components/HomePage/ArticleList";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/category/:categoryId" element={<CategoryPage />} />
+          {/* <Route path="/category/:categoryId" element={<CategoryPage />} /> */}
+          <Route path="/category/:categoryId" element={<ArticleList />} />
         </Routes>
       </div>
     </Router>
