@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import LatestNews from "../components/HomePage/LatestNews";
 import ArticleList from "../components/HomePage/ArticleList";
 import CategoryList from "../components/HomePage/CategoryList";
 import "./HomePage.sass";
@@ -17,9 +16,6 @@ const HomePage = () => {
       </div>
       <div className="article-list">
         <ArticleList selectedCategory={selectedCategory} />
-      </div>
-      <div className="latest-news">
-        <LatestNews />
       </div>
     </div>
   );
