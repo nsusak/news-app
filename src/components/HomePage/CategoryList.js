@@ -1,7 +1,5 @@
-import React from "react";
-// import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import "./CategoryList.sass";
-
 import HomeIcon from "../../icons/Icons.svg";
 import GeneralIcon from "../../icons/Home.svg";
 import BusinessIcon from "../../icons/Group.svg";
@@ -11,17 +9,20 @@ import SportsIcon from "../../icons/Sport.svg";
 import TechnologyIcon from "../../icons/Technology.svg";
 
 const categories = [
-  { name: "Home", icon: HomeIcon },
-  { name: "General", icon: GeneralIcon },
-  { name: "Business", icon: BusinessIcon },
-  { name: "Health", icon: HealthIcon },
-  { name: "Science", icon: ScienceIcon },
-  { name: "Sports", icon: SportsIcon },
-  { name: "Technology", icon: TechnologyIcon },
+  { name: "news", icon: HomeIcon, label: "Home" },
+  { name: "general", icon: GeneralIcon, label: "General" },
+  { name: "business", icon: BusinessIcon, label: "Business" },
+  { name: "health", icon: HealthIcon, label: "Health" },
+  { name: "science", icon: ScienceIcon, label: "Science" },
+  { name: "sport", icon: SportsIcon, label: "Sports" },
+  { name: "tech", icon: TechnologyIcon, label: "Technology" },
 ];
 
 const CategoryList = ({ onCategorySelect }) => {
+  const [selectedCategory, setSelectedCategory] = useState("news");
+
   const handleCategoryClick = (category) => {
+    setSelectedCategory(category.name);
     onCategorySelect(category.name);
   };
 
@@ -30,18 +31,18 @@ const CategoryList = ({ onCategorySelect }) => {
       <div>
         {categories.map((category) => (
           <div
-            className="icon-container"
+            className={`icon-container ${
+              selectedCategory === category.name ? "selected" : ""
+            }`}
             key={category.name}
             onClick={() => handleCategoryClick(category)}
           >
-            {/* <Link to={`/category/${category.name.toLowerCase()}`}> */}
             <img
               className="category-icon"
               src={category.icon}
               alt={`${category.name} icon`}
             />
-            <span className="category-name">{category.name}</span>
-            {/* </Link> */}
+            <span className="category-name">{category.label}</span>
           </div>
         ))}
       </div>

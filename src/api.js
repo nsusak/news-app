@@ -11,33 +11,32 @@ const fetchAndCategorizeSources = async () => {
         },
       }
     );
-
-    const categorizedSources = [];
-    response.data.sources.forEach((source) => {
-      categorizedSources.push({ id: source.id, category: source.category });
-    });
+    console.log(response, "iz sorsa");
+    const categorizedSources = response.data.sources.map((source) => ({
+      id: source.id,
+      category: source.category,
+    }));
 
     return categorizedSources;
   } catch (error) {
-    console.error("Error fetching and categorizing sources:", error);
+    console.error("Error fetching and categorizing sources:", error.message);
     throw error;
   }
 };
 
 const fetchLatestNews = async (page = 1) => {
   try {
-    const response = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`,
-      {
-        params: {
-          page: page,
-        },
-      }
-    );
+    const response = await axios.get(`https://newsapi.org/v2/top-headlines`, {
+      params: {
+        country: "us",
+        apiKey,
+        page,
+      },
+    });
     console.log(response);
     return response.data.articles;
   } catch (error) {
-    console.error("Error fetching latest news:", error);
+    console.error("Error fetching latest news:", error.message);
     throw error;
   }
 };
@@ -48,43 +47,37 @@ const fetchArticles = async (category) => {
   const sources = await fetchAndCategorizeSources();
 
   const params = {
-    q: "today",
-    apiKey: apiKey,
+    q: category || "news",
+    apiKey,
   };
-
+  console.log(params, "params");
   try {
     const response = await axios.get("https://newsapi.org/v2/everything", {
       params,
     });
-    console.log(response, "res iz fetch articles");
+    console.log(response, "response from fetch articles");
 
     const articles = response.data.articles.map((article) => {
-      if (article.source.id !== null) {
-        const source = sources.find(
-          (source) => source.id === article.source.id
-        );
-        if (source.id === article.source.id) {
-          return {
-            ...article,
-            category: source.category,
-          };
-        }
-      }
-      return { ...article, category: "general" };
+      const source = sources.find((source) => source.id === article.source.id);
+
+      return {
+        ...article,
+        category: source ? source.category : "Unknown",
+      };
     });
+
     if (category) {
-      console.log(category, articles);
-      return articles.filter((article) => {
-        console.log(article.category, category);
-        return article.category === category.toLowerCase();
-      });
+      console.log("Filtered articles for category:", category);
+      return articles.filter(
+        (article) => article.category === category.toLowerCase()
+      );
     } else {
       return articles;
     }
   } catch (error) {
-    console.error("Error fetching articles:", error);
+    console.error("Error fetching articles:", error.message);
     throw error;
   }
 };
 
-export { fetchLatestNews, fetchArticles };
+export { fetchLatestNews, fetchArticles, fetchAndCategorizeSources };

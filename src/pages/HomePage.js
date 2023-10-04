@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ArticleList from "../components/HomePage/ArticleList";
 import CategoryList from "../components/HomePage/CategoryList";
+import SearchBar from "../components/HomePage/SearchBar";
 import "./HomePage.sass";
 
 const HomePage = () => {
@@ -10,12 +11,15 @@ const HomePage = () => {
     setSelectedCategory(category);
   };
   return (
-    <div className="home-page">
-      <div className="category-list">
-        <CategoryList onCategorySelect={handleCategorySelect} />
-      </div>
-      <div className="article-list">
-        <ArticleList selectedCategory={selectedCategory} />
+    <div>
+      <SearchBar />
+      <div className="home-page">
+        <div className="category-list">
+          <CategoryList onCategorySelect={handleCategorySelect} />
+        </div>
+        <div className="article-list">
+          <ArticleList selectedCategory={selectedCategory} />
+        </div>
       </div>
     </div>
   );

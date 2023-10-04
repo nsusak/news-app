@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-
 import "./ArticleList.sass";
 import { fetchArticles } from "../../api";
 import LatestNews from "./LatestNews";
-
 
 const ArticleList = ({ selectedCategory }) => {
   const [articles, setArticles] = useState([]);
@@ -25,9 +23,9 @@ const ArticleList = ({ selectedCategory }) => {
     <div className="article-list">
       <h2>{selectedCategory ? selectedCategory : "News"}</h2>
       <div className="grid">
-      <div className="latest-news-container">
-        <LatestNews />
-      </div>
+        <div className="latest-news-container">
+          <LatestNews />
+        </div>
         {articles.map((article) => (
           <div key={article.url} className="card">
             <img src={article.urlToImage} alt={article.title} />
