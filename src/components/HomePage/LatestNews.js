@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./LatestNews.sass";
 import LatestIcon from "../../icons/Latest.svg";
-
 import { fetchLatestNews } from "../../api";
 
 const LatestNews = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const loadMoreNews = async () => {
     try {
       const newArticles = await fetchLatestNews(page + 1);
+      if (newArticles.length === 0) {
+        setHasMore(false);
+        return;
+      }
       setNews((prevNews) => [...prevNews, ...newArticles]);
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
@@ -22,7 +26,11 @@ const LatestNews = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const articles = await fetchLatestNews();
+        const articles = await fetchLatestNews(page);
+        if (articles.length === 0) {
+          setHasMore(false);
+          return;
+        }
         setNews(articles);
         setLoading(false);
       } catch (error) {
@@ -32,12 +40,12 @@ const LatestNews = () => {
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = e.target;
 
-    if (scrollHeight - scrollTop === clientHeight) {
+    if (scrollHeight - scrollTop === clientHeight && !loading && hasMore) {
       loadMoreNews();
     }
   };
@@ -64,6 +72,7 @@ const LatestNews = () => {
         </div>
 
         {loading && <div>Loading more news...</div>}
+        {!loading && !hasMore && <div>No more news to load.</div>}
       </div>
     </div>
   );

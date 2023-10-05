@@ -7,6 +7,7 @@ import HealthIcon from "../../icons/Health.svg";
 import ScienceIcon from "../../icons/Science.svg";
 import SportsIcon from "../../icons/Sport.svg";
 import TechnologyIcon from "../../icons/Technology.svg";
+import FavoritesIcon from "../../icons/Favorites.svg";
 
 const categories = [
   { name: "news", icon: HomeIcon, label: "Home" },
@@ -16,6 +17,7 @@ const categories = [
   { name: "science", icon: ScienceIcon, label: "Science" },
   { name: "sport", icon: SportsIcon, label: "Sports" },
   { name: "tech", icon: TechnologyIcon, label: "Technology" },
+  { name: "favorites", icon: FavoritesIcon, label: "Favorites" },
 ];
 
 const CategoryList = ({ onCategorySelect }) => {

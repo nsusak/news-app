@@ -19,7 +19,7 @@ const HomePage = () => {
   };
   return (
     <div>
-      <SearchBar ref={searchInputRef} onSearch={handleSearch} />
+      <SearchBar innerRef={searchInputRef} onSearch={handleSearch} />
 
       <div className="home-page">
         <div className="category-list">

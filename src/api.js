@@ -26,6 +26,7 @@ const apiKey = process.env.REACT_APP_API_KEY;
 
 const fetchLatestNews = async (page = 1) => {
   try {
+    console.log("fetching latest");
     const response = await axios.get(`https://newsapi.org/v2/top-headlines`, {
       params: {
         country: "us",
@@ -68,6 +69,7 @@ const fetchArticles = async (query) => {
 
 export { fetchLatestNews, fetchArticles };
 
+//to complicate or not to complicate
 // const fetchArticles = async (category) => {
 //   console.log(category, "getting category in the api");
 
