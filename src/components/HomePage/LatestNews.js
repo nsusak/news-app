@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./LatestNews.sass";
+import LatestIcon from "../../icons/Latest.svg";
+
 import { fetchLatestNews } from "../../api";
 
 const LatestNews = () => {
@@ -43,7 +45,10 @@ const LatestNews = () => {
   return (
     <div className="latest-news-container" onScroll={handleScroll}>
       <div className="container">
-        <h2>Latest News</h2>
+        <div className="latest-news-heading">
+          <img src={LatestIcon} alt={"latest-icon"} />
+          <span>Latest News</span>
+        </div>
         <div>
           {news.map((item) => {
             const publishedTime = new Date(item.publishedAt);
@@ -57,6 +62,7 @@ const LatestNews = () => {
             );
           })}
         </div>
+
         {loading && <div>Loading more news...</div>}
       </div>
     </div>

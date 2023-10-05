@@ -15,7 +15,7 @@ function App() {
             Every day discover what is trending on the internet!
           </div>
           <div className="bolded-text">
-            No, thanks <button>GET</button>
+            No, thanks <button className="button-get">Get</button>
           </div>
         </div>
 

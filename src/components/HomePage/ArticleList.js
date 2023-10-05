@@ -3,13 +3,21 @@ import "./ArticleList.sass";
 import { fetchArticles } from "../../api";
 import LatestNews from "./LatestNews";
 
-const ArticleList = ({ selectedCategory }) => {
+const ArticleList = ({ selectedCategory, searchQuery }) => {
   const [articles, setArticles] = useState([]);
+  console.log(searchQuery, "search qwuery in article list");
 
   useEffect(() => {
     const fetchArticlesData = async () => {
       try {
-        const fetchedArticles = await fetchArticles(selectedCategory);
+        let query = selectedCategory; // Use selected category as the query by default
+
+        // If a search query is available, use that instead
+        if (searchQuery) {
+          query = searchQuery;
+        }
+
+        const fetchedArticles = await fetchArticles(query);
         setArticles(fetchedArticles);
       } catch (error) {
         console.error("Error fetching articles:", error);
@@ -17,11 +25,15 @@ const ArticleList = ({ selectedCategory }) => {
     };
 
     fetchArticlesData();
-  }, [selectedCategory]);
+  }, [selectedCategory, searchQuery]);
 
   return (
     <div className="article-list">
-      <h2>{selectedCategory ? selectedCategory : "News"}</h2>
+      <h2>
+        {selectedCategory
+          ? selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)
+          : "News"}
+      </h2>
       <div className="grid">
         <div className="latest-news-container">
           <LatestNews />
